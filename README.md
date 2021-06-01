@@ -29,9 +29,7 @@ dependencies {
 }
 ```
 
-```
-
-## Usage 
+#### Usage 
 ```kotlin
     var value: Float by rememberSaveable { mutableStateOf(3.2f) }  //initial rating value is 3.2 here
     Column(){
@@ -54,4 +52,3 @@ fun RatingBar(
     ratingBarStyle: RatingBarStyle=RatingBarStyle.Normal,
     onRatingChanged: (Float) -> Unit
 )
-```
