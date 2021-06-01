@@ -30,6 +30,17 @@ dependencies {
 ```
 
 # Usage 
+DarkThemeButton @Composable function has 4 parameters, where isSystemInDarkMode is the only mandatory param.
+```kotlin
+@Composable
+fun DarkModeButton(
+    modifier: Modifier = Modifier,
+    sunColor: Color = DEFAULT_SUN_COLOR,
+    moonColor: Color = DEFAULT_MOON_COLOR,
+    isSystemInDarkMode: MutableState<Boolean>
+)
+```
+
 ```kotlin
 setContent {
     val darkThemeState = mutableStateOf(isSystemInDarkTheme())
@@ -53,13 +64,3 @@ setContent {
     }
 }
 ```
-
-DarkThemeButton @Composable function has 4 parameters, where isSystemInDarkMode is the only mandatory param.
-```kotlin
-@Composable
-fun DarkModeButton(
-    modifier: Modifier = Modifier,
-    sunColor: Color = DEFAULT_SUN_COLOR,
-    moonColor: Color = DEFAULT_MOON_COLOR,
-    isSystemInDarkMode: MutableState<Boolean>
-)
