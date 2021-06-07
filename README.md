@@ -24,7 +24,7 @@ Add this to your module's `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	compile 'com.github.jd-alexander:LikeButton:0.2.3'
+		implementation 'com.github.gilbecker:DarkModeButton:1.0.0'
 	}
 }
 ```
