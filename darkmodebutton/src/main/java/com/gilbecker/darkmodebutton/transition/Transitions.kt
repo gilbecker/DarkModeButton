@@ -1,5 +1,6 @@
 package com.gilbecker.darkmodebutton.transition
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
@@ -8,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
 
 private const val ANIMATION_DURATION = 1600
 
@@ -18,7 +18,7 @@ internal fun updateMoonTransitionData(
     moonColor: Color,
     sunColor: Color
 ): TransitionData {
-    return updateTransitionData(isDarkTheme = isDarkTheme, planet = Planet.MOON, moonColor = moonColor, sunColor = sunColor)
+    return updateTransitionData(isDarkTheme = isDarkTheme, planet = Planet.MOON, moonColor, sunColor)
 }
 
 @Composable
@@ -27,19 +27,19 @@ internal fun updateSunTransitionData(
     moonColor: Color,
     sunColor: Color
 ): TransitionData {
-    return updateTransitionData(isDarkTheme = isDarkTheme, planet = Planet.SUN, moonColor = moonColor, sunColor = sunColor)
+    return updateTransitionData(isDarkTheme = isDarkTheme, planet = Planet.SUN, moonColor, sunColor)
 }
 
 internal class TransitionData(
-    color: State<Color>,
     scale: State<Float>,
     alpha: State<Float>,
-    angle: State<Float>
+    angle: State<Float>,
+    color: State<Color>
 ) {
-    val color by color
     val alpha by alpha
     val angle by angle
     val scale by scale
+    val color by color
 }
 
 @Composable
@@ -51,14 +51,8 @@ private fun updateTransitionData(
 ): TransitionData {
     val transition = updateTransition(isDarkTheme, label = "")
 
-    val color = transition.animateColor(label = "color", transitionSpec = {
-        tween(1000)
-    }) { darkTheme ->
-        if (darkTheme) moonColor else sunColor
-    }
-
     val alpha = transition.animateFloat(label = "alpha", transitionSpec = {
-        tween(2000)
+        tween(ANIMATION_DURATION + 600)
     }) { darkTheme ->
         when (planet) {
             Planet.SUN -> {
@@ -80,7 +74,7 @@ private fun updateTransitionData(
     }
 
     val scale = transition.animateFloat(label = "scale", transitionSpec = {
-        tween(ANIMATION_DURATION)
+        tween(ANIMATION_DURATION - 600)
     }) { darkTheme ->
         when (planet) {
             Planet.SUN -> {
@@ -92,7 +86,13 @@ private fun updateTransitionData(
         }
     }
 
-    return remember (transition) { TransitionData(color, scale, alpha, angle) }
+    val color = transition.animateColor(label = "color", transitionSpec = {
+        tween(ANIMATION_DURATION)
+    }) { darkTheme ->
+        if (darkTheme) moonColor else sunColor
+    }
+
+    return remember(transition) { TransitionData(scale, alpha, angle, color) }
 }
 
 private enum class Planet {

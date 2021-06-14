@@ -1,6 +1,5 @@
 package com.gilbecker.darkmodebutton.button
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +23,6 @@ import com.gilbecker.darkmodebutton.transition.updateSunTransitionData
 private val DEFAULT_SUN_COLOR = Color(0XFFFFDC00)
 private val DEFAULT_MOON_COLOR = Color(0XFFDDDDDD)
 
-@ExperimentalAnimationApi
 @Composable
 fun DarkModeButton(
     modifier: Modifier = Modifier,
@@ -69,8 +67,9 @@ fun DarkModeButton(
             "sun",
             modifier = modifier
                 .scale(transitionDataSun.scale)
-                .alpha(transitionDataSun.alpha),
-            colorFilter = ColorFilter.tint(if (isPressed) moonColor else transitionDataMoon.color)
+                .alpha(transitionDataSun.alpha)
+                .rotate(transitionDataMoon.angle),
+            colorFilter = ColorFilter.tint(if (isPressed) moonColor else transitionDataSun.color)
         )
     }
 }

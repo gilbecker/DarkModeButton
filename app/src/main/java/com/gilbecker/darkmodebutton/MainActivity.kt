@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.gilbecker.darkmodebutton.button.DarkModeButton
 
 class MainActivity : ComponentActivity() {
-    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,7 +38,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(4.dp)
                                 .fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.End
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(text = "DarkThemeButton Example")
                             DarkModeButton(
